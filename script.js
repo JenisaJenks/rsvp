@@ -1,4 +1,4 @@
-// Save the Date — envelope opening + RSVP
+// Save the Date envelope opening + RSVP
 
 // ---- Envelope: click to open ----
 const envelope = document.getElementById("envelope");
@@ -31,9 +31,7 @@ envelope.addEventListener("click", (e) => {
 });
 
 // ---- RSVP (page 3) ----
-// Posts to a Netlify function that securely writes the RSVP into Notion.
 const RSVP_ENDPOINT = "/.netlify/functions/rsvp";
-
 const rsvpBtn = document.getElementById("rsvpBtn");
 const rsvpBack = document.getElementById("rsvpBack");
 const rsvp = document.getElementById("rsvp");
