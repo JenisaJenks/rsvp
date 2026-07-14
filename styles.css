@@ -16,7 +16,10 @@
 html, body { height: 100%; }
 
 body {
+  /* 100vh on mobile is the height WITHOUT the browser's address/nav bars, so it
+     over-reserves space and forces scrolling. dvh tracks the real visible area. */
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   /* "safe" centers the card when it fits, but falls back to top-aligned (fully
      scrollable) when it's taller than the viewport, instead of clipping the top. */
