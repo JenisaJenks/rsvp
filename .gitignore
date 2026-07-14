@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Netlify
+.netlify/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+
+# Local env / secrets — never commit your Notion token
+.env
+.env.*
