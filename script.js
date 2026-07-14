@@ -79,7 +79,7 @@ rsvpForm.addEventListener("submit", async (e) => {
 
     rsvpForm.reset();
     rsvpStatus.classList.add("ok");
-    rsvpStatus.textContent = "Thank you — your RSVP has been received. \u{1F490}";
+    rsvpStatus.textContent = "Thank you! your RSVP has been received. \u{1F490}";
   } catch {
     rsvpStatus.classList.add("err");
     rsvpStatus.textContent = "Sorry, something went wrong. Please try again.";
