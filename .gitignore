@@ -11,3 +11,5 @@ Thumbs.db
 # Local env / secrets — never commit your Notion token
 .env
 .env.*
+
+.archive

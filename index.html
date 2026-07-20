@@ -5,37 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
 
-  <!-- Tints the mobile browser bar to match the invite -->
   <meta name="theme-color" content="#b3c3d8" />
 
   <title>A Letter from Josh &amp; Jenisa</title>
   <meta name="description" content="Josh &amp; Jenisa are getting married in Koh Samui, Thailand. Open our invitation and let us know if you'll be joining us." />
 
-  <!-- Link preview card shown by iMessage, WhatsApp, Messenger, etc. -->
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Josh &amp; Jenisa" />
-  <meta property="og:title" content="A Letter from Josh &amp; Jenisa 💌" />
-  <meta property="og:description" content="We're getting married in Koh Samui, Thailand — open our invitation and RSVP." />
-  <meta property="og:url" content="https://howellrsvp.netlify.app/" />
-  <meta property="og:image" content="https://howellrsvp.netlify.app/Seal.png" />
-  <meta property="og:image:alt" content="A wax seal on Josh & Jenisa's wedding invitation" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="A Letter from Josh &amp; Jenisa 💌" />
-  <meta name="twitter:description" content="We're getting married in Koh Samui, Thailand — open our invitation and RSVP." />
-  <meta name="twitter:image" content="https://howellrsvp.netlify.app/Seal.png" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=56" />
+  <link rel="stylesheet" href="styles.css?v=115" />
 </head>
 <body>
 
   <!-- ============ PAGE 1: ENVELOPE ============ -->
-  <section class="envelope" id="envelope">
+  <div class="envelope-page" id="envelopePage">
 
-    <!-- Envelope body: fold shading + creases converging on the seal -->
+    <header class="env-header">
+      <p class="env-eyebrow" data-typed>A Letter From</p>
+      <h1 class="env-names" data-typed>Josh &amp; Jenisa</h1>
+    </header>
+
+    <section class="envelope" id="envelope">
+
+    <!-- fold shading + creases converging on the flap tip -->
     <svg class="env-folds" viewBox="0 0 440 620" preserveAspectRatio="none" aria-hidden="true">
       <defs>
         <linearGradient id="fLeft" x1="0" y1="0" x2="1" y2="0.3">
@@ -48,37 +40,28 @@
           <stop offset="0" stop-color="#a6b8ce" /><stop offset="1" stop-color="#bfcde0" />
         </linearGradient>
       </defs>
-      <polygon points="0,124 220,338 0,620" fill="url(#fLeft)" />
-      <polygon points="440,124 220,338 440,620" fill="url(#fRight)" />
-      <polygon points="0,620 220,338 440,620" fill="url(#fBottom)" />
+      <polygon points="0,0 220,291 0,620" fill="url(#fLeft)" />
+      <polygon points="440,0 220,291 440,620" fill="url(#fRight)" />
+      <polygon points="0,620 220,291 440,620" fill="url(#fBottom)" />
       <!-- crease shadow then highlight -->
-      <path d="M0,127 L220,341 M440,127 L220,341 M0,617 L220,335 M440,617 L220,335"
+      <path d="M0,3 L220,294 M440,3 L220,294 M0,617 L220,288 M440,617 L220,288"
             stroke="#5b6f8c" stroke-opacity="0.16" stroke-width="1.2" fill="none" />
-      <path d="M0,124 L220,338 M440,124 L220,338 M0,620 L220,338 M440,620 L220,338"
+      <path d="M0,0 L220,291 M440,0 L220,291 M0,620 L220,291 M440,620 L220,291"
             stroke="#ffffff" stroke-opacity="0.4" stroke-width="1" fill="none" />
     </svg>
 
-    <!-- Top text (on the flap) -->
-    <p class="env-eyebrow">A Letter From</p>
-    <h1 class="env-names">Josh &amp; Jenisa</h1>
-
-    <!-- The flap: top triangle that lifts open, with lace facing outward -->
+    <!-- top triangle that lifts open, with lace facing outward -->
     <div class="env-flap" id="flap" aria-hidden="true">
       <div class="flap-face"></div>
-
-      <!-- Scalloped lace V along the flap's two edges -->
-      <img class="lace-img" src="lace.png?v=1" alt="" />
-
-      <!-- Wax seal — attached to the flap tip so it lifts with the flap -->
-      <div class="seal" aria-hidden="true">
-        <img class="seal-img" src="Seal.png?v=1" alt="" />
-      </div>
+      <img class="lace-img" src="lacev2.png" alt="" />
     </div>
 
-    <button class="open-btn" id="openBtn" aria-controls="invitation">
-      Open the Invitation
+    </section>
+
+    <button class="open-btn" id="openBtn" aria-controls="invitation" data-typed>
+      Open Letter
     </button>
-  </section>
+  </div>
 
   <!-- ============ PAGE 2: INVITATION ============ -->
   <main class="stage" id="invitation" hidden>
@@ -92,14 +75,30 @@
 
         <p class="announce">invite you to celebrate their wedding</p>
 
+        <div class="name-divider" aria-hidden="true"></div>
+
         <div class="date-block">
           <div class="date-row">
-            <span class="month">September</span>
-            <span class="date-number">2</span>
-            <span class="year">2027</span>
+            <div class="date-cell">
+              <span class="date-label">Saturday</span>
+              <span class="date-value">03</span>
+            </div>
+            <div class="date-cell date-cell--time">
+              <span class="date-value">2</span>
+              <span class="date-sublabel">PM</span>
+            </div>
+            <div class="date-cell">
+              <span class="date-label">September</span>
+              <span class="date-value">2027</span>
+            </div>
           </div>
-          <span class="location">Koh Samui, Thailand</span>
         </div>
+
+        <div class="date-divider" aria-hidden="true"></div>
+
+        <p class="location">Koh Samui, Thailand</p>
+
+        <div class="name-divider location-divider" aria-hidden="true"></div>
 
         <p class="celebrate-note">
           To help us with our planning, please let us know if you&rsquo;ll be joining us.
@@ -119,33 +118,7 @@
           </div>
         </div>
 
-        <button class="rsvp-btn" id="rsvpBtn" type="button">Respond Now</button>
-
-        <div class="divider" aria-hidden="true">
-          <span class="divider-rule"></span>
-          <svg class="divider-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor"
-               stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
-            <!-- heart -->
-            <g transform="translate(0 2)">
-              <path d="M24 9
-                       C24.8 7.9 26 7.2 27.3 7.2
-                       C29.2 7.2 30.6 8.7 30.6 10.5
-                       C30.6 11.8 29.8 12.8 28.8 13.7
-                       L24 18
-                       L19.2 13.7
-                       C18.2 12.8 17.4 11.8 17.4 10.5
-                       C17.4 8.7 18.8 7.2 20.7 7.2
-                       C22 7.2 23.2 7.9 24 9" />
-            </g>
-            <!-- envelope -->
-            <rect x="10" y="20" width="28" height="17" rx="1.2" />
-            <path d="M10 20 L24 30 L38 20" />
-            <path d="M10 37 L19 28" />
-            <path d="M38 37 L29 28" />
-            <path d="M19 28 L29 28" />
-          </svg>
-          <span class="divider-rule"></span>
-        </div>
+        <button class="rsvp-btn" id="rsvpBtn" type="button">Kindly Respond</button>
 
         <p class="footer-note">Full travel details, itinerary and your formal invite will follow a few months after you RSVP</p>
       </div>
@@ -197,6 +170,6 @@
     </div>
   </section>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=102"></script>
 </body>
 </html>
