@@ -99,6 +99,21 @@ $("rsvpBack").addEventListener("click", () => showPage(invitation, rsvp));
 const rsvpForm = $("rsvpForm");
 const rsvpStatus = $("rsvpStatus");
 
+// A warm line + a subtly brighter button the moment an answer is chosen
+const attendanceReply = $("attendanceReply");
+const rsvpSubmit = rsvpForm.querySelector(".rsvp-submit");
+const attendanceReplies = {
+  "Joyfully Accepts": "We’re so excited to celebrate with you \u{1F90D}",
+  "Regretfully Declines": "Thank you for letting us know. We'll miss having you there",
+};
+rsvpForm.querySelectorAll('input[name="attendance"]').forEach((input) => {
+  input.addEventListener("change", () => {
+    attendanceReply.textContent = attendanceReplies[input.value] || "";
+    attendanceReply.classList.add("show");
+    rsvpSubmit.classList.add("ready");
+  });
+});
+
 rsvpForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const submitBtn = rsvpForm.querySelector(".rsvp-submit");
@@ -117,6 +132,8 @@ rsvpForm.addEventListener("submit", async (e) => {
     if (!res.ok) throw new Error("Request failed");
 
     rsvpForm.reset();
+    attendanceReply.classList.remove("show");
+    rsvpSubmit.classList.remove("ready");
     rsvpStatus.classList.add("ok");
     rsvpStatus.textContent = "Thank you! your RSVP has been received. \u{1F490}";
   } catch {

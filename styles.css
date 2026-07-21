@@ -4,6 +4,7 @@
   --accent: #566d90;
   --cream: #fdfbf6;
   --line: #bfccdd;
+  --glow: 170, 210, 245;   /* soft blue glow behind a selected pearl (RGB) */
 
   /* body padding, shared so the emerging stage can pin itself to the exact
      geometry the card will occupy once it returns to normal flow */
@@ -26,7 +27,7 @@ body {
   font-family: "Montserrat", sans-serif;
   color: var(--ink);
   background:
-    url("background.png") center / cover no-repeat,
+    url("background.webp") center / cover no-repeat,
     radial-gradient(ellipse at 50% 42%, #ccd5e4 0%, transparent 62%),
     linear-gradient(165deg, #bcc6d7 0%, #aeb9cd 60%, #a3afc5 100%);
   background-attachment: fixed;
@@ -547,12 +548,28 @@ body {
   text-transform: uppercase;
   color: var(--muted);
 }
+/* Place over country on two lines — Koh Samui as the hero, Thailand smaller and
+   more tightly tracked beneath. text-indent offsets the trailing letter-spacing
+   so each line stays optically centred. */
 .location {
-  font-size: clamp(0.7rem, 2.6vw, 0.78rem);
-  letter-spacing: 0.25em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 28px;
+}
+.location-place {
+  font-size: clamp(0.82rem, 3vw, 0.95rem);
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+.location-country {
+  font-size: clamp(0.62rem, 2.3vw, 0.7rem);
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  opacity: 0.82;
 }
 
 .footer-note {
@@ -618,7 +635,7 @@ body {
   width: min(300px, 74%);
   aspect-ratio: 1878 / 62;
   margin: 0 auto 26px;
-  background-image: url("name_divider.png");
+  background-image: url("name_divider.webp");
   background-repeat: no-repeat;
   background-size: 115.65% auto;
   background-position: 50% 49.24%;
@@ -627,7 +644,7 @@ body {
   width: min(295px, 71%);
   aspect-ratio: 1378 / 198;
   margin: -4px auto 26px;
-  background-image: url("date_divider.png");
+  background-image: url("date_divider.webp");
   background-repeat: no-repeat;
   background-size: 111.47% auto;
   background-position: 51.9% 49.52%;
@@ -641,13 +658,13 @@ body {
   font-size: clamp(1rem, 3.4vw, 1.12rem);
   letter-spacing: 0.18em;
   color: var(--cream);
-  /* lighter navy with a gentle top-to-bottom gradient — soft enough to sit with
-     the rest of the stationery rather than dominate it */
-  background: linear-gradient(180deg, #566d94 0%, #4a5f83 100%);
+  /* soft dusty blue centred on #62779E — light enough that the eye reads the RSVP
+     date first, and the button feels luxurious rather than a hard navy CTA */
+  background: linear-gradient(180deg, #687ea8 0%, #5c7094 100%);
   border: none;
   border-radius: 13px;
   cursor: pointer;
-  padding: 20px 50px;
+  padding: 17px 50px;
   margin-bottom: 26px;
   /* faint grounded shadow + a soft inner top highlight for a subtle emboss */
   box-shadow:
@@ -674,7 +691,8 @@ body {
 .rsvp-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  /* generous, even spacing between sections (label+field stay tight internally) */
+  gap: 30px;
   text-align: left;
   margin-bottom: 24px;
   animation: rise 0.5s ease both;
@@ -695,52 +713,236 @@ body {
   color: var(--muted);
 }
 .field-label em { font-style: normal; text-transform: none; letter-spacing: 0; opacity: 0.7; }
+/* tiny line icon sitting before each label */
+.label-icon {
+  width: 12px;
+  height: 12px;
+  margin-right: 6px;
+  vertical-align: -0.12em;
+  color: var(--muted);
+  opacity: 0.55;
+}
 
 .rsvp-form input[type="text"],
 .rsvp-form textarea {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(1rem, 3.6vw, 1.1rem);
   color: var(--ink);
-  background: #f3f7fc;
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  padding: 10px 12px;
+  /* translucent white instead of a warm cream block, so the fields recede into
+     the paper and read airy — the eye lands on the text, not the boxes. (The
+     blur is inert while the card behind is opaque; it's here for subtlety and in
+     case the card ever goes translucent.) */
+  background: rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  border: 1px solid #c7d2e3;
+  border-radius: 11px;
+  padding: 11px 13px;
   width: 100%;
   resize: vertical;
-  transition: border-color 0.25s ease;
+  /* a whisper of shadow — just enough to lift the field off the paper */
+  box-shadow: 0 2px 6px -1px rgba(95, 115, 155, 0.07);
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 .rsvp-form input[type="text"]:focus,
 .rsvp-form textarea:focus {
   outline: none;
   border-color: var(--accent);
+  /* firm up the fill a touch and add a soft blue glow so the active field reads */
+  background: rgba(255, 255, 255, 0.34);
+  box-shadow:
+    0 2px 6px -1px rgba(95, 115, 155, 0.07),
+    0 0 0 3px rgba(115, 140, 180, 0.15);
 }
 
-.radio {
+/* Pearl radio buttons — an ivory pearl that gains a smaller blue pearl centre
+   when chosen. Built in CSS so it stays sharp at any size and loads instantly. */
+.attendance-options {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+/* identical to .field-label — one shared label style across the whole form */
+.attendance-options legend {
+  margin-bottom: 7px;
+  padding: 0;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.pearl-option {
   display: flex;
   align-items: center;
-  gap: 9px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1rem, 3.6vw, 1.1rem);
-  color: var(--ink);
+  gap: 15px;
+  width: fit-content;
+  margin: 9px 0;
   cursor: pointer;
+  /* the invitation's body serif for the label (not the demo's Georgia) */
+  color: var(--ink);
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 3.8vw, 1.3rem);
+  line-height: 1.35;
+  -webkit-tap-highlight-color: transparent;
 }
-.radio input { accent-color: var(--accent); }
+/* tighten the text line-box so it sits dead-centre against the pearl */
+.pearl-option > span:last-child { line-height: 1.2; }
+
+/* Hide the native radio but keep it accessible (label wraps it → whole row tappable) */
+.pearl-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Glossy freshwater pearl (pure CSS, no images) ──────────────────────────
+   High-contrast base for a mirror-like sphere; ::before adds iridescent nacre,
+   ::after adds specular mirror highlights, and the .center child is the small
+   lit pearl revealed on select. */
+.pearl {
+  position: relative;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%,
+    #ffffff 0%,
+    #ffffff 10%,
+    #f4f1ea 26%,
+    #e2ddd3 52%,
+    #c4c6cd 82%,
+    #b2b5c0 100%);
+  box-shadow:
+    inset -3px -4px 8px rgba(110,110,132,0.42),   /* shaded underside */
+    inset 3px 3px 6px rgba(255,255,255,1),         /* lit topside */
+    0 3px 5px rgba(74,90,122,0.22);                /* soft drop shadow */
+  transition: transform 0.15s ease, box-shadow 0.25s ease;
+}
+
+/* iridescent nacre sheen */
+.pearl::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 65% 78%, rgba(200,160,215,0.32), transparent 42%),
+    radial-gradient(circle at 72% 42%, rgba(150,220,190,0.26), transparent 40%),
+    radial-gradient(circle at 40% 68%, rgba(255,210,170,0.24), transparent 44%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* mirror highlights: a sharp specular glint + a soft reflected-light spot below */
+.pearl::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse 26% 20% at 30% 24%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 40%, transparent 72%),
+    radial-gradient(circle 2px at 27% 21%, #ffffff 0%, transparent 100%),
+    radial-gradient(ellipse 34% 22% at 68% 80%, rgba(255,255,255,0.55) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* small lit centre pearl, revealed on select */
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;                                       /* sits above the mirror highlights */
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #ffffff, #efeae0 55%, #cfc6b6);
+  box-shadow: 0 0 6px 1px rgba(var(--glow), 0.9);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.18s ease, opacity 0.18s ease;
+  pointer-events: none;
+}
+
+/* checked: a soft blue glow (not a hard ring) + the centre pearl blooms in */
+.pearl-option input:checked + .pearl {
+  box-shadow:
+    inset -3px -4px 8px rgba(110,110,132,0.42),
+    inset 3px 3px 6px rgba(255,255,255,1),
+    0 0 8px 2px rgba(var(--glow), 0.85),
+    0 0 18px 6px rgba(var(--glow), 0.55),
+    0 0 30px 12px rgba(var(--glow), 0.30);
+}
+.pearl-option input:checked + .pearl > .center {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* hover (desktop pointers only) — a gentle grow, no bounce */
+@media (hover: hover) and (pointer: fine) {
+  .pearl-option:hover .pearl { transform: scale(1.06); }
+}
+
+/* keyboard focus — tasteful ring */
+.pearl-option input:focus-visible + .pearl {
+  outline: 2px solid rgba(var(--glow), 0.9);
+  outline-offset: 3px;
+}
+
+/* Warm one-line reply that fades in the moment an answer is chosen. display:none
+   until shown so it claims no flex gap before selection. */
+.attendance-reply {
+  display: none;
+  margin: -8px 0 -2px;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 1.02rem;
+  line-height: 1.4;
+  color: var(--accent);
+}
+.attendance-reply.show {
+  display: block;
+  animation: replyIn 0.4s ease both;
+}
+@keyframes replyIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RSVP-page flourishes reuse the invitation motifs to tie the two pages together */
+.rsvp-divider-top { margin: 2px auto 24px; }
+.rsvp-divider-btn { margin: 6px auto 8px; }
+.rsvp-shell { margin: 22px auto 14px; width: min(220px, 60%); }
 
 .rsvp-submit {
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.66rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
+  /* same serif / Title Case / tracking as the invitation's "Kindly Respond" button */
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1rem, 3.4vw, 1.12rem);
+  letter-spacing: 0.18em;
   color: var(--cream);
-  background: var(--accent);
+  /* same soft dusty blue as the page-2 button (#62779E) */
+  background: linear-gradient(180deg, #687ea8 0%, #5c7094 100%);
   border: none;
-  border-radius: 3px;
+  border-radius: 8px;
   cursor: pointer;
   padding: 13px 20px;
   margin-top: 4px;
-  transition: background 0.3s ease;
+  box-shadow: 0 6px 16px -6px rgba(40, 60, 100, 0.26);
+  transition: filter 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
-.rsvp-submit:hover { background: var(--ink); }
+/* gently brighter once an answer is chosen (JS adds .ready) */
+.rsvp-submit.ready { filter: brightness(1.05); }
+.rsvp-submit:hover {
+  filter: brightness(1.09);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px -8px rgba(40, 60, 100, 0.34);
+}
+.rsvp-submit:active { transform: translateY(0); }
 .rsvp-submit:disabled { opacity: 0.6; cursor: default; }
 
 .rsvp-status {
@@ -754,11 +956,12 @@ body {
 
 .rsvp-back {
   display: inline-block;
-  margin-top: 28px;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.62rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+  margin-top: 10px;
+  /* printed-stationery serif rather than uppercase UI tracking */
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(0.94rem, 2.4vw, 1.04rem);
+  letter-spacing: 0.03em;
   color: var(--muted);
   background: none;
   border: none;
@@ -797,9 +1000,9 @@ body {
   .rsvp-by-icon { width: 26px; height: 26px; }
   .rsvp-by-text { padding-left: 12px; }
 
-  .rsvp-btn { padding: 13px 34px; margin-bottom: 12px; }
+  .rsvp-btn { padding: 11px 34px; margin-bottom: 12px; }
 
-  .rsvp-form { gap: 11px; margin-bottom: 14px; }
+  .rsvp-form { gap: 18px; margin-bottom: 14px; }
   .field { gap: 5px; }
   .rsvp-form input[type="text"], .rsvp-form textarea { padding: 8px 10px; }
   .rsvp-form textarea { min-height: 46px; }
