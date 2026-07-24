@@ -143,7 +143,8 @@ body {
   font-size: clamp(0.6rem, 2.4vw, 0.72rem);
   letter-spacing: 0.42em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.88);
+  color: rgba(255, 255, 255, 0.95);
+  padding-bottom: 8px;
 }
 .env-names {
   margin-top: clamp(20px, 5vw, 34px);
@@ -279,10 +280,11 @@ body {
   background: linear-gradient(168deg, #fffefb 0%, var(--cream) 45%, #f6f2e9 100%);
   /* Thick-stock paper: drop shadows + inset edge light. Layer count and order
      are mirrored in @keyframes shadowSettle. */
+  /* soft, wide shadow so the card reads as gently floating rather than heavy */
   box-shadow:
-    0 1px 2px rgba(52, 68, 96, 0.10),
-    0 9px 20px -8px rgba(52, 68, 96, 0.26),
-    0 32px 62px -20px rgba(44, 60, 86, 0.46),
+    0 2px 6px rgba(52, 68, 96, 0.06),
+    0 16px 38px -12px rgba(52, 68, 96, 0.16),
+    0 44px 90px -30px rgba(44, 60, 86, 0.30),
     inset 0 0 0 1px rgba(255, 255, 255, 0.7),
     inset 0 2px 8px rgba(255, 255, 255, 0.55),
     inset 0 -1px 0 rgba(120, 135, 160, 0.14);
@@ -451,7 +453,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  margin: 48px 0 26px;
+  margin: 48px 0 38px;
 }
 .name {
   font-family: "Great Vibes", cursive;
@@ -497,8 +499,10 @@ body {
 }
 .date-row {
   display: flex;
-  align-items: stretch;   /* so the vertical divider spans the full cell height */
+  align-items: stretch;   
   font-family: "Cormorant Garamond", serif;
+  padding-top: 16px;
+  padding-bottom: 8px;
 }
 /* each cell: a small tracked label over a large serif value, mirroring the
    attached design. Cells are split by a vertical rule. */
@@ -593,7 +597,7 @@ body {
   gap: 13px;
   width: fit-content;
   margin: 0 auto 30px;
-  padding: 10px 18px;
+  padding: 1000px 18px;
   background: rgba(255, 255, 255, 0.35);
   border: 1px solid rgba(86, 109, 144, 0.14);
   border-radius: 4px;
@@ -643,28 +647,27 @@ body {
 .date-divider {
   width: min(295px, 71%);
   aspect-ratio: 1378 / 198;
-  margin: -4px auto 26px;
+  margin: -4px auto 36px;
   background-image: url("date_divider.webp");
   background-repeat: no-repeat;
   background-size: 111.47% auto;
   background-position: 51.9% 49.52%;
+  padding-bottom: 30px;
 }
 
-/* Set in the invitation's serif rather than the UI sans, so it reads as part of
-   the stationery instead of a web control */
+
 .rsvp-btn {
   display: inline-block;
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(1rem, 3.4vw, 1.12rem);
   letter-spacing: 0.18em;
   color: var(--cream);
-  /* soft dusty blue centred on #62779E — light enough that the eye reads the RSVP
-     date first, and the button feels luxurious rather than a hard navy CTA */
   background: linear-gradient(180deg, #687ea8 0%, #5c7094 100%);
   border: none;
   border-radius: 13px;
   cursor: pointer;
-  padding: 17px 50px;
+  padding: 17px 58px;
+  margin-top: 19px;
   margin-bottom: 26px;
   /* faint grounded shadow + a soft inner top highlight for a subtle emboss */
   box-shadow:
@@ -691,7 +694,6 @@ body {
 .rsvp-form {
   display: flex;
   flex-direction: column;
-  /* generous, even spacing between sections (label+field stay tight internally) */
   gap: 30px;
   text-align: left;
   margin-bottom: 24px;
@@ -701,7 +703,7 @@ body {
 .field {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 11px;
   border: none;
   padding: 0;
   margin: 0;
@@ -743,6 +745,13 @@ body {
   box-shadow: 0 2px 6px -1px rgba(95, 115, 155, 0.07);
   transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
+.rsvp-form input[type="text"]::placeholder,
+.rsvp-form textarea::placeholder {
+  /* very light grey-blue, conversational rather than empty */
+  color: #a9b6cc;
+  font-style: italic;
+  opacity: 1;
+}
 .rsvp-form input[type="text"]:focus,
 .rsvp-form textarea:focus {
   outline: none;
@@ -778,7 +787,7 @@ body {
   align-items: center;
   gap: 15px;
   width: fit-content;
-  margin: 9px 0;
+  margin: 7px 0;
   cursor: pointer;
   /* the invitation's body serif for the label (not the demo's Georgia) */
   color: var(--ink);
@@ -807,13 +816,14 @@ body {
 .pearl {
   position: relative;
   flex: none;
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
+  /* softened, flatter shading — a gentle pale pearl rather than a domed sphere */
   box-shadow:
-    inset -3px -4px 8px rgba(110,110,132,0.42),   /* shaded underside */
-    inset 3px 3px 6px rgba(255,255,255,1),         /* lit topside */
-    0 3px 5px rgba(74,90,122,0.22);                /* soft drop shadow */
+    inset -2px -3px 6px rgba(110,110,132,0.30),   /* shaded underside */
+    inset 2px 2px 5px rgba(255,255,255,0.72),      /* lit topside */
+    0 2px 4px rgba(74,90,122,0.16);                /* soft drop shadow */
   transition: transform 0.15s ease, box-shadow 0.25s ease;
 }
 
@@ -844,35 +854,45 @@ body {
   pointer-events: none;
 }
 
-/* small lit centre pearl, revealed on select */
-.center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 1;                                    
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 28%, #ffffff, #efeae0 55%, #cfc6b6);
-  box-shadow: 0 0 6px 1px rgba(var(--glow), 0.9);
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.18s ease, opacity 0.18s ease;
-  pointer-events: none;
-}
-
-/* checked: a soft blue glow (not a hard ring) + the centre pearl blooms in */
+/* checked: a soft blue outer glow only — no inner dot or centre pearl */
 .pearl-option input:checked + .pearl {
   box-shadow:
-    inset -3px -4px 8px rgba(110,110,132,0.42),
-    inset 3px 3px 6px rgba(255,255,255,1),
-    0 0 8px 2px rgba(var(--glow), 0.85),
-    0 0 18px 6px rgba(var(--glow), 0.55),
-    0 0 30px 12px rgba(var(--glow), 0.30);
+    inset -2px -3px 6px rgba(110,110,132,0.30),
+    inset 2px 2px 5px rgba(255,255,255,0.72),
+    0 0 8px 2px rgb(191, 226, 250),
+    0 0 18px 6px rgb(191, 226, 250),
+    0 0 30px 13px rgba(191, 226, 250);
 }
-.pearl-option input:checked + .pearl > .center {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+
+/* Selection shimmer — the .center span is a circular clip mask; its ::before is a
+   soft gloss band parked just off the left edge. On select it sweeps across once
+   (200ms) then resets. Sub-perceptual: reads as "premium", not as an animation. */
+.center {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.center::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -80%;
+  width: 55%;
+  height: 140%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  transform: skewX(-16deg);
+  opacity: 0;
+}
+.pearl-option input:checked + .pearl > .center::before {
+  animation: pearlShimmer 0.2s ease-out;
+}
+@keyframes pearlShimmer {
+  0%   { opacity: 0; transform: skewX(-16deg) translateX(0); }
+  12%  { opacity: 1; }
+  100% { opacity: 0; transform: skewX(-16deg) translateX(260%); }
 }
 
 /* hover (desktop pointers only) — a gentle grow, no bounce */
@@ -894,7 +914,8 @@ body {
   font-family: "Cormorant Garamond", serif;
   font-style: italic;
   font-size: 1.02rem;
-  line-height: 1.4;
+  line-height: 1.35;
+  text-align: center;
   color: var(--accent);
 }
 .attendance-reply.show {
@@ -906,24 +927,21 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* RSVP-page flourishes reuse the invitation motifs to tie the two pages together */
-.rsvp-divider-top { margin: 2px auto 24px; }
+.rsvp-divider-top { margin: 2px auto 29px; }
 .rsvp-divider-btn { margin: 6px auto 8px; }
-.rsvp-shell { margin: 22px auto 14px; width: min(220px, 60%); }
+.rsvp-shell { margin: 12px auto 14px; width: min(220px, 60%); }
 
 .rsvp-submit {
-  /* same serif / Title Case / tracking as the invitation's "Kindly Respond" button */
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(1rem, 3.4vw, 1.12rem);
   letter-spacing: 0.18em;
   color: var(--cream);
-  /* same soft dusty blue as the page-2 button (#62779E) */
   background: linear-gradient(180deg, #687ea8 0%, #5c7094 100%);
   border: none;
   border-radius: 8px;
   cursor: pointer;
   padding: 13px 20px;
-  margin-top: 4px;
+  margin-top: 14px;
   box-shadow: 0 6px 16px -6px rgba(40, 60, 100, 0.26);
   transition: filter 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -949,12 +967,11 @@ body {
 .rsvp-back {
   display: inline-block;
   margin-top: 10px;
-  /* printed-stationery serif rather than uppercase UI tracking */
   font-family: "Cormorant Garamond", serif;
   font-style: italic;
   font-size: clamp(0.94rem, 2.4vw, 1.04rem);
   letter-spacing: 0.03em;
-  color: var(--muted);
+  color: #647893;
   background: none;
   border: none;
   cursor: pointer;
@@ -967,14 +984,66 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Desktop / laptop (wider than a phone): the base layout above is airy enough
+   that the ~990px-tall card overflows a landscape screen. Compact the spacing
+   and trim the hero sizes so pages 2 & 3 fit a standard laptop window without
+   scrolling. Very tall windows just centre the card with extra whitespace. */
+@media (min-width: 481px) {
+  /* roomier frame padding on desktop (page-3 card is also widened below;
+     page 2 stays envelope-width so its opening animation still aligns) */
+  .border-frame { padding: 22px 34px 22px; }
+
+  /* Page 1: lift the whole opening composition up to sit more centred */
+  .envelope-page { margin-top: -25px; }
+
+  /* Page 2 — spacing scaled up a touch for more breathing room */
+  .names { margin: 8px 0 11px; }
+  .name { font-size: clamp(1.85rem, 3.8vw, 2.2rem); }
+  .amp { font-size: clamp(1.05rem, 2.2vw, 1.35rem); }
+  .announce { margin-bottom: 13px; }
+  .name-divider { margin-bottom: 11px; }
+  .date-block { gap: 10px; padding: 10px clamp(10px, 6vw, 32px); margin: 3px 0 12px; }
+  .date-value { font-size: clamp(1.85rem, 4.4vw, 2.25rem); }
+  .date-divider { margin: -2px auto 11px; }
+  .location { margin-bottom: 11px; }
+  .celebrate-note { margin-bottom: 11px; }
+  .rsvp-by { margin: 24px auto 12px; padding: 9px 22px; }
+  .rsvp-by-date { font-size: clamp(1.2rem, 4vw, 1.4rem); }
+  /* ~10% wider and a touch taller */
+  .rsvp-btn { padding: 12px 58px; margin-bottom: 10px; }
+  .footer-note { font-size: 1.06rem; }
+
+  /* Page 3 */
+  #rsvp { max-width: 528px; }
+  .eyebrow { margin-bottom: 12px; }
+  .rsvp-divider-top { margin: 2px auto 15px; }
+  .rsvp-form { gap: 10px; margin-bottom: 10px; }
+  .field { gap: 9px; }
+  .rsvp-form input[type="text"], .rsvp-form textarea { padding: 9px 12px; }
+  .rsvp-form textarea { min-height: 66px; height: 66px; }
+  .attendance-options legend { margin-bottom: 5px; }
+  /* smaller, less glossy pearls on desktop for a more refined feel */
+  .pearl { width: 15px; height: 15px; }
+  .pearl::before { opacity: 0.5; }
+  .pearl::after { opacity: 0.4; }
+  .pearl-option { margin: 2px 0; }
+  .rsvp-divider-btn { margin: 2px auto 4px; }
+  .rsvp-shell { margin: 14px auto 0; }
+  .rsvp-back { margin-top: -10px; }
+}
+
 /* Sizes scale via clamp() above; this only tightens spacing so pages 2 & 3 fit
    on one phone screen */
 @media (max-width: 480px) {
   :root { --pad-y: 8px; --pad-x: 8px; }
   .border-frame { margin: 8px; padding: 13px 18px 12px; }
 
+  /* ---- Page 1: envelope ---- */
+  /* nudge the whole opening screen up a touch; internal spacing is unchanged */
+  .envelope-page { margin-top: -13px; }
+
   /* ---- Page 2: invitation ---- */
-  .names { margin: 10px 0 7px; }
+  .names { margin: 19px 0 7px; }
   .announce { line-height: 1.35; margin-bottom: 9px; }
 
   .name-divider { margin-bottom: 7px; }
@@ -991,23 +1060,30 @@ body {
   .rsvp-by-icon { width: 25px; height: 25px; }
   .rsvp-by-text { padding-left: 11px; }
 
-  .rsvp-btn { padding: 10px 32px; margin-bottom: 10px; }
-  .footer-note { line-height: 1.3; }
+  .rsvp-btn { padding: 10px 38px; margin-bottom: 10px; }
+  .footer-note { font-size: 0.92rem; line-height: 1.3; }
 
   /* ---- Page 3: RSVP form ---- */
   .eyebrow { margin-bottom: 14px; letter-spacing: 0.26em; }
-  .rsvp-divider-top { margin: 2px auto 12px; }
+  .rsvp-divider-top { margin: 2px auto 17px; }
   #rsvp .announce { margin-bottom: 4px; }
 
-  .rsvp-form { gap: 11px; margin-bottom: 9px; }
-  .field { gap: 4px; }
+  .rsvp-form { gap: 11px; margin-bottom: 4px; }
+  .field { gap: 8px; }
   .rsvp-form input[type="text"], .rsvp-form textarea { padding: 8px 10px; }
-  .rsvp-form textarea { min-height: 40px; height: 40px; }
+  .rsvp-form textarea { min-height: 62px; height: 62px; }
   .attendance-options legend { margin-bottom: 5px; }
-  .pearl-option { margin: 6px 0; }
+  /* calmer pearls on mobile: further dim the mirror glints and iridescent sheen
+     (the flatter pale body now comes from the shared base styles) */
+  .pearl::before { opacity: 0.4; }
+  .pearl::after { opacity: 0.28; }
+  .pearl-option { margin: 4px 0; }
   .rsvp-divider-btn { margin: 2px auto 4px; }
-  .rsvp-submit { padding: 10px 18px; margin-top: 2px; }
-  .rsvp-shell { margin: 8px auto 6px; width: min(200px, 56%); }
+  .rsvp-submit { padding: 10px 18px; margin-top: 12px; }
+  /* collapse the empty status line's reserved height so the footer group sits
+     closer to the button (it re-expands to show a submit message) */
+  .rsvp-status { min-height: 0; }
+  .rsvp-shell { margin: -2px auto 6px; width: min(200px, 56%); }
   .rsvp-back { margin-top: 7px; }
 }
 
@@ -1033,18 +1109,18 @@ body {
   .rsvp-by { margin: 0 auto 8px; padding: 5px 12px; }
   .rsvp-by-icon { width: 23px; height: 23px; }
   .rsvp-by-date { font-size: 1.12rem; }
-  .rsvp-btn { padding: 9px 30px; margin-bottom: 7px; }
-  .footer-note { font-size: 0.8rem; }
+  .rsvp-btn { padding: 9px 35px; margin-bottom: 7px; }
+  .footer-note { font-size: 0.88rem; }
 
   /* Page 3 */
   /* shorten the card's entrance travel so it never overshoots a short viewport
      during the ~1s rise (the resting position already fits) */
   #rsvp .card { --card-rise: 16px; }
   .eyebrow { margin-bottom: 10px; }
-  .rsvp-divider-top { margin: 2px auto 8px; }
+  .rsvp-divider-top { margin: 2px auto 13px; }
   #rsvp .announce { margin-bottom: 3px; }
   .rsvp-form { gap: 9px; margin-bottom: 7px; }
-  .pearl-option { margin: 5px 0; font-size: clamp(1.1rem, 3.6vw, 1.25rem); }
-  .rsvp-shell { margin: 6px auto 5px; }
+  .pearl-option { margin: 3px 0; font-size: clamp(1.1rem, 3.6vw, 1.25rem); }
+  .rsvp-shell { margin: -2px auto 5px; }
   .rsvp-back { margin-top: 6px; }
 }
