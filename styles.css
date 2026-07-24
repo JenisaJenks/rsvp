@@ -4,7 +4,7 @@
   --accent: #566d90;
   --cream: #fdfbf6;
   --line: #bfccdd;
-  --glow: 170, 210, 245;   /* soft blue glow behind a selected pearl (RGB) */
+  --glow: 170, 210, 245;   
 
   /* body padding, shared so the emerging stage can pin itself to the exact
      geometry the card will occupy once it returns to normal flow */
@@ -819,11 +819,10 @@ body {
   width: 17px;
   height: 17px;
   border-radius: 50%;
-  /* softened, flatter shading — a gentle pale pearl rather than a domed sphere */
   box-shadow:
-    inset -2px -3px 6px rgba(110,110,132,0.30),   /* shaded underside */
-    inset 2px 2px 5px rgba(255,255,255,0.72),      /* lit topside */
-    0 2px 4px rgba(74,90,122,0.16);                /* soft drop shadow */
+    inset -2px -3px 6px rgba(110,110,132,0.30),   
+    inset 2px 2px 5px rgba(255,255,255,0.72),      
+    0 2px 4px rgba(74,90,122,0.16);               
   transition: transform 0.15s ease, box-shadow 0.25s ease;
 }
 
@@ -859,9 +858,9 @@ body {
   box-shadow:
     inset -2px -3px 6px rgba(110,110,132,0.30),
     inset 2px 2px 5px rgba(255,255,255,0.72),
-    0 0 8px 2px rgb(191, 226, 250),
-    0 0 18px 6px rgb(191, 226, 250),
-    0 0 30px 13px rgba(191, 226, 250);
+    0 0 8px 2px rgb(200, 210, 241),
+    0 0 18px 6px rgb(221, 232, 240),
+    0 0 30px 13px rgba(221, 232, 240);
 }
 
 /* Selection shimmer — the .center span is a circular clip mask; its ::before is a
