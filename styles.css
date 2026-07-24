@@ -300,7 +300,7 @@ body {
 }
 
 @keyframes cardRise {
-  from { opacity: 0; transform: translateY(46px); }
+  from { opacity: 0; transform: translateY(var(--card-rise, 46px)); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -713,7 +713,6 @@ body {
   color: var(--muted);
 }
 .field-label em { font-style: normal; text-transform: none; letter-spacing: 0; opacity: 0.7; }
-/* tiny line icon sitting before each label */
 .label-icon {
   width: 12px;
   height: 12px;
@@ -808,16 +807,9 @@ body {
 .pearl {
   position: relative;
   flex: none;
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: radial-gradient(circle at 34% 28%,
-    #ffffff 0%,
-    #ffffff 10%,
-    #f4f1ea 26%,
-    #e2ddd3 52%,
-    #c4c6cd 82%,
-    #b2b5c0 100%);
   box-shadow:
     inset -3px -4px 8px rgba(110,110,132,0.42),   /* shaded underside */
     inset 3px 3px 6px rgba(255,255,255,1),         /* lit topside */
@@ -857,7 +849,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 1;                                       /* sits above the mirror highlights */
+  z-index: 1;                                    
   width: 9px;
   height: 9px;
   border-radius: 50%;
@@ -979,33 +971,80 @@ body {
    on one phone screen */
 @media (max-width: 480px) {
   :root { --pad-y: 8px; --pad-x: 8px; }
-  .border-frame { margin: 8px; padding: 14px 18px 12px; }
+  .border-frame { margin: 8px; padding: 13px 18px 12px; }
 
-  .eyebrow { margin-bottom: 25px; letter-spacing: 0.26em; }
-  /* the whole invitation is tuned to fit a phone screen in one view (no scroll),
-     so the vertical rhythm here is deliberately tighter than on desktop */
-  .names { margin: 12px 0 8px; }
-  .announce { line-height: 1.4; margin-bottom: 10px; }
+  /* ---- Page 2: invitation ---- */
+  .names { margin: 10px 0 7px; }
+  .announce { line-height: 1.35; margin-bottom: 9px; }
 
-  .name-divider { margin-bottom: 8px; }
-  .date-block { gap: 9px; padding-top: 8px; padding-bottom: 8px; margin: 0 0 10px; }
+  .name-divider { margin-bottom: 7px; }
+  .date-block { gap: 8px; padding-top: 6px; padding-bottom: 6px; margin: 0 0 9px; }
   .date-cell { padding: 0 clamp(14px, 5vw, 24px); }
-  .date-label { letter-spacing: 0.16em; text-indent: 0.16em; }
-  .date-divider { margin: -2px auto 8px; }
-  .location { margin-bottom: 8px; }
+  .date-label { letter-spacing: 0.16em; text-indent: 0.16em; padding-bottom: 6px; }
+  .date-cell:not(.date-cell--time) .date-value { padding-bottom: 6px; }
+  .date-divider { margin: -2px auto 7px; }
+  .location { margin-bottom: 7px; }
 
-  .celebrate-note { line-height: 1.4; margin-bottom: 10px; }
+  .celebrate-note { line-height: 1.35; margin-bottom: 9px; }
 
-  .rsvp-by { padding: 7px 14px; gap: 10px; margin: 0 auto 12px; }
-  .rsvp-by-icon { width: 26px; height: 26px; }
-  .rsvp-by-text { padding-left: 12px; }
+  .rsvp-by { padding: 6px 13px; gap: 10px; margin: 0 auto 11px; }
+  .rsvp-by-icon { width: 25px; height: 25px; }
+  .rsvp-by-text { padding-left: 11px; }
 
-  .rsvp-btn { padding: 11px 34px; margin-bottom: 12px; }
+  .rsvp-btn { padding: 10px 32px; margin-bottom: 10px; }
+  .footer-note { line-height: 1.3; }
 
-  .rsvp-form { gap: 18px; margin-bottom: 14px; }
-  .field { gap: 5px; }
+  /* ---- Page 3: RSVP form ---- */
+  .eyebrow { margin-bottom: 14px; letter-spacing: 0.26em; }
+  .rsvp-divider-top { margin: 2px auto 12px; }
+  #rsvp .announce { margin-bottom: 4px; }
+
+  .rsvp-form { gap: 11px; margin-bottom: 9px; }
+  .field { gap: 4px; }
   .rsvp-form input[type="text"], .rsvp-form textarea { padding: 8px 10px; }
-  .rsvp-form textarea { min-height: 46px; }
-  .rsvp-submit { padding: 11px 18px; margin-top: 2px; }
-  .rsvp-back { margin-top: 14px; }
+  .rsvp-form textarea { min-height: 40px; height: 40px; }
+  .attendance-options legend { margin-bottom: 5px; }
+  .pearl-option { margin: 6px 0; }
+  .rsvp-divider-btn { margin: 2px auto 4px; }
+  .rsvp-submit { padding: 10px 18px; margin-top: 2px; }
+  .rsvp-shell { margin: 8px auto 6px; width: min(200px, 56%); }
+  .rsvp-back { margin-top: 7px; }
+}
+
+/* Short phones (e.g. iPhone SE at 375x667, or any device once the browser bar
+   eats into the height): gently shrink the hero type and spacing so both the
+   invitation and the RSVP form still fit in one view with no scroll. Taller
+   phones skip this and keep the roomier layout above. */
+@media (max-width: 480px) and (max-height: 670px) {
+  .border-frame { padding: 11px 18px 11px; }
+
+  /* Page 2 */
+  .name { font-size: clamp(1.75rem, 8.4vw, 2.4rem); }
+  .amp { font-size: clamp(1.05rem, 4.4vw, 1.35rem); }
+  .names { margin: 6px 0 5px; }
+  .announce { margin-bottom: 7px; }
+  .date-value { font-size: clamp(1.7rem, 7.6vw, 2.3rem); }
+  .date-block { gap: 6px; margin-bottom: 7px; }
+  .name-divider { margin-bottom: 5px; }
+  .date-divider { margin: -2px auto 5px; }
+  .location { margin-bottom: 5px; }
+  .location-place { font-size: clamp(0.78rem, 2.9vw, 0.92rem); }
+  .celebrate-note { margin-bottom: 7px; }
+  .rsvp-by { margin: 0 auto 8px; padding: 5px 12px; }
+  .rsvp-by-icon { width: 23px; height: 23px; }
+  .rsvp-by-date { font-size: 1.12rem; }
+  .rsvp-btn { padding: 9px 30px; margin-bottom: 7px; }
+  .footer-note { font-size: 0.8rem; }
+
+  /* Page 3 */
+  /* shorten the card's entrance travel so it never overshoots a short viewport
+     during the ~1s rise (the resting position already fits) */
+  #rsvp .card { --card-rise: 16px; }
+  .eyebrow { margin-bottom: 10px; }
+  .rsvp-divider-top { margin: 2px auto 8px; }
+  #rsvp .announce { margin-bottom: 3px; }
+  .rsvp-form { gap: 9px; margin-bottom: 7px; }
+  .pearl-option { margin: 5px 0; font-size: clamp(1.1rem, 3.6vw, 1.25rem); }
+  .rsvp-shell { margin: 6px auto 5px; }
+  .rsvp-back { margin-top: 6px; }
 }
